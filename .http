@@ -1,3 +1,37 @@
-@PORT = 3000;
+@PORT = 3000
 
 @host = http://localhost:{{PORT}}
+
+###
+POST {{host}}/register
+Content-Type: application/json
+
+{
+  "username": "user6",
+  "password": "password6"
+}
+
+### BAD REQUEST
+POST {{host}}/register
+Content-Type: application/json
+
+{
+  "username": "user7"
+}
+
+###
+POST {{host}}/login
+Content-Type: application/json
+
+{
+  "username": "user6",
+  "password": "password6"
+}
+
+### BAD request
+POST {{host}}/login
+Content-Type: application/json
+
+{
+  "username": "user6"
+}
