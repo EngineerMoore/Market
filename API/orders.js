@@ -55,7 +55,7 @@ router.get("/:id", authenticate, async (req, res, next) =>{
         id: +id,
         customerId: req.user.id, 
       },
-      includes: {items: true}
+      include: {items: true}
     });
 
     if(!orders){

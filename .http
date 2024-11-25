@@ -69,3 +69,13 @@ Authorization: Bearer {{token}}
   "date": "11/24/24",
   "itemIds": [1, 2, 17, 10]
 }
+
+### Bad request
+GET {{host}}/orders/21
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+###
+GET {{host}}/orders/11
+Content-Type: application/json
+Authorization: Bearer {{token}}
