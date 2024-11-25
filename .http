@@ -1,0 +1,104 @@
+@PORT = 3000
+
+@host = http://localhost:{{PORT}}
+
+###
+POST {{host}}/register
+Content-Type: application/json
+
+{
+  "username": "user6",
+  "password": "password6"
+}
+
+### BAD REQUEST
+POST {{host}}/register
+Content-Type: application/json
+
+{
+  "username": "user7"
+}
+
+###
+# @name login
+POST {{host}}/login
+Content-Type: application/json
+
+{
+  "username": "user6",
+  "password": "password6"
+}
+
+### BAD request
+POST {{host}}/login
+Content-Type: application/json
+
+{
+  "username": "user6"
+}
+
+@token = {{login.response.body.token}}
+###
+GET {{host}}/orders
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+### Bad Request
+GET {{host}}/orders
+Content-Type: application/json
+
+
+###
+POST {{host}}/orders
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "date": "11/24/24",
+  "note": "Address: 1234 Street ln. 77777, Tx",
+  "itemIds": [1, 2, 17, 10]
+  
+}
+
+### Bad Request
+POST {{host}}/orders
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "date": "11/24/24",
+  "itemIds": [1, 2, 17, 10]
+}
+
+### Bad request
+GET {{host}}/orders/21
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+###
+GET {{host}}/orders/11
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+###
+GET {{host}}/products
+
+###
+GET {{host}}/products/17
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+
+###
+GET {{host}}/products/1
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+###
+GET {{host}}/products/1
+Content-Type: application/json
+
+
+### Bad Request
+GET {{host}}/products/30
+Content-Type: application/json

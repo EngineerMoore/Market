@@ -14,6 +14,7 @@ const prisma = new PrismaClient().$extends({
             password: hashedPassword,
           }
         });
+        // allows the user object to be utilized after using register method
         return user;
       },
 
