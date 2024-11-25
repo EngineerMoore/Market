@@ -79,3 +79,26 @@ Authorization: Bearer {{token}}
 GET {{host}}/orders/11
 Content-Type: application/json
 Authorization: Bearer {{token}}
+
+###
+GET {{host}}/products
+
+###
+GET {{host}}/products/17
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+
+###
+GET {{host}}/products/1
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+###
+GET {{host}}/products/1
+Content-Type: application/json
+
+
+### Bad Request
+GET {{host}}/products/30
+Content-Type: application/json
