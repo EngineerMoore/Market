@@ -20,6 +20,7 @@ Content-Type: application/json
 }
 
 ###
+# @name login
 POST {{host}}/login
 Content-Type: application/json
 
@@ -34,4 +35,37 @@ Content-Type: application/json
 
 {
   "username": "user6"
+}
+
+@token = {{login.response.body.token}}
+###
+GET {{host}}/orders
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+### Bad Request
+GET {{host}}/orders
+Content-Type: application/json
+
+
+###
+POST {{host}}/orders
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "date": "11/24/24",
+  "note": "Address: 1234 Street ln. 77777, Tx",
+  "itemIds": [1, 2, 17, 10]
+  
+}
+
+### Bad Request
+POST {{host}}/orders
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "date": "11/24/24",
+  "itemIds": [1, 2, 17, 10]
 }

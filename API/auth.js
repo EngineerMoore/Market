@@ -13,13 +13,14 @@ const createToken = (id) => {
   return jwt.sign({ id }, JWT_SECRET, {expiresIn: "1d"});
 }
 
-//TODO: 
+/* Q: Error statements not working. Why? A: next wasn't working as a function
+w/in the parameters of my ...nextError function so I had to invoke it w/in the middleware,
+where it was recognized as a function*/
 const authenticationNextError = (field) => {
-  if(!field){
-     next({
+    return {
       status: 400,
-      message: `Attention, ${field} required`})
-  }
+      message: `Attention, ${field} required`
+    }
 };
 
 // Find user according to token
@@ -60,8 +61,8 @@ router.use( async (req, res, next) => {
 router.post("/register", async(req, res, next) => {
   const { username, password } = req.body;
 
-  authenticationNextError(`${username}`);
-  authenticationNextError(`${password}`);
+  if(!username) return next(authenticationNextError(`username`));
+  if(!password) return next(authenticationNextError(`password`));
 
   try{
     const user = await prisma.user.register(username, password);
@@ -79,8 +80,8 @@ router.post("/register", async(req, res, next) => {
 router.post("/login", async (req, res, next) => {
   const { username, password } = req.body;
 
-  authenticationNextError(`${username}`);
-  authenticationNextError(`${password}`);
+  if(!username) return authenticationNextError(`username`);
+  if(!password) return authenticationNextError(`password`);
 
   try { 
     const user = await prisma.user.login(username, password);
